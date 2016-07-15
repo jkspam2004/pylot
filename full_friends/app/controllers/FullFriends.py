@@ -25,7 +25,7 @@ class FullFriends(Controller):
             "email" : request.form['email'],
             "occupation" : request.form['occupation']
         }
-        self.models['FullFriend'].update_friend(id, first_name, last_name, email, occupation)
+        self.models['FullFriend'].update_friend(id, data)
         return redirect('/')
 
     def delete(self, id):
