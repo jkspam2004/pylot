@@ -1,0 +1,33 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <title>Login and Registration</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %} 
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h2>Registration</h2>
+    <form action="/users/register" method="post">
+        <p><label>First Name: </label><input type="text" name="first_name" /></p>
+        <p><label>Last Name: </label><input type="text" name="last_name" /></p>
+        <p><label>Email: </label><input type="text" name="email" /></p>
+        <p><label>Password: </label><input type="text" name="password" /></p>
+        <p><label>Confirm Password: </label><input type="text" name="confirm_pw" /></p>
+        <p><input type="submit" value="Register" /></p>
+    </form>
+
+    <h2>Login</h2>
+    <form action="/users/login" method="post">
+        <p><label>Email: </label><input type="text" name="email" /></p>
+        <p><label>Password: </label><input type="text" name="password" /></p>
+        <p><input type="submit" value="Login" /></p>
+    </form>
+
+</body>
+</html>
