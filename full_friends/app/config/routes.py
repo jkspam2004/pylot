@@ -17,13 +17,13 @@ from system.core.router import routes
     The automatically generated routes respond to all of the http verbs (GET, POST, PUT, PATCH, DELETE)
 """
 routes['default_controller'] = 'FullFriends'
-routes['/add'] = 'FullFriends#add'
-routes['/show/<id>'] = 'FullFriends#show'
-routes['/edit/<id>'] = 'FullFriends#edit'
-routes['/delete/<id>'] = 'FullFriends#delete'
-routes['POST']['/update/<id>'] = 'FullFriends#update'
-routes['POST']['/delete_confirm/<id>'] = 'FullFriends#delete_confirm'
-routes['POST']['/add_friend'] = 'FullFriends#add_friend'
+routes['/add'] = 'FullFriends#add'                      # add page to add friend
+routes['/show/<id>'] = 'FullFriends#show'               # show one friend info
+routes['/edit/<id>'] = 'FullFriends#edit'               # edit page for one friend
+routes['/delete/<id>'] = 'FullFriends#delete'           # confirmation page for delete
+routes['POST']['/update/<id>'] = 'FullFriends#update'   # update friend info
+routes['POST']['/delete_confirm/<id>'] = 'FullFriends#delete_confirm' # sends id for removing friend
+routes['POST']['/add_friend'] = 'FullFriends#add_friend' # add one friend to db
 """
     You can add routes and specify their handlers as follows:
 
