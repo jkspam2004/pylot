@@ -1,0 +1,9 @@
+* {
+  font-family: monaco;
+}
+table {
+    border: 1px solid #eee;
+}
+th, td {
+    border: 1px solid #eee;
+}
