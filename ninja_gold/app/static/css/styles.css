@@ -1,0 +1,54 @@
+/* global setting reset */
+* {
+  font-family: monaco;
+  padding: 0px;
+  margin: 0px;
+}
+#container {
+  margin: 0px auto;
+  width: 900px;
+}
+h2 {
+  margin: 20px 0px;
+  text-align: center;
+}
+div.place {
+  margin: 10px auto;
+  display: inline-block;
+  vertical-align: top;
+  width: 210px;
+  height: 210px;
+  border: 1px solid;
+}
+div.editable {
+  padding: 10px;
+  font-size: 12px;
+  width: 840px;
+  height: 60px;
+  border: 1px solid black;
+  overflow: auto;
+}
+p.title {
+  margin: 20px auto;
+  text-align: center;
+  font-weight: bold;
+}
+p.earn {
+  margin: 20px auto;
+  text-align: center;
+  font-size: 13px;
+}
+p.gain {
+  color: green
+}
+p.loss {
+  color: red
+}
+input.button {
+  margin: 60px auto;
+  display: block;
+}
+form#reset {
+  margin-top: 100px;
+}
+

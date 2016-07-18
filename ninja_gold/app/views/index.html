@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // auto scroll the activities window to the bottom to see recent activities
+             var objDiv = document.getElementById("editable");
+             objDiv.scrollTop = objDiv.scrollHeight;
+        })
+    </script>
+</head>
+<body>
+	<div id='container'>
+		<h2>Ninja Gold</h2>
+
+		<p>
+			Your Gold: <input type="text" value="{{session['gold']}}" placeholder="0" readonly />
+		</p>
+
+		<div class="place">
+			<form id="farm" name="farm" action="/process_money" method="post">
+				<p class="title">Farm</p>
+				<p class="earn">(earns 10-20 golds)</p>
+				<input type="hidden" name="action" value="play_farm" />
+				<input class="button" type="submit" value="Find Gold!" />
+			</form>
+		</div> <!-- end div.place for Farm -->
+
+		<div class="place">
+			<form id="cave" name="cave" action="/process_money" method="post">
+				<p class="title">Cave</p>
+				<p class="earn">(earns 5-10 golds)</p>
+				<input type="hidden" name="action" value="play_cave" />
+				<input class="button" type="submit" value="Find Gold!" />
+
+			</form>		
+		</div> <!-- end div.place for Cave -->
+
+		<div class="place">
+			<form id="house" name="house" action="/process_money" method="post">
+				<p class="title">House</p>
+				<p class="earn">(earns 2-5 golds)</p>
+				<input type="hidden" name="action" value="play_house" />
+				<input class="button" type="submit" value="Find Gold!" />
+
+			</form>		
+		</div> <!-- end div.place for House -->
+
+		<div class="place">
+			<form id="casino" name="casino" action="/process_money" method="post">
+				<p class="title">Casino</p>
+				<p class="earn">(earns/takes 0-50 golds)</p>
+				<input type="hidden" name="action" value="play_casino" />
+				<input class="button" type="submit" value="Find Gold!" />
+
+			</form>		
+		</div> <!-- end div.place for Casino -->
+
+		<p>Activities:</p>
+		<div id="editable" class="editable">{{ session.activities | safe }}</div>
+
+		<!-- reset the total gold and activities -->
+		<form id="reset" name="reset" action="/reset" method="post">
+			<input type="submit" name="reset" value="Reset" />
+		</form>
+
+
+	</div> <!-- end div#container -->
+</body>
+</html>
