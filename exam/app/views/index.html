@@ -1,0 +1,44 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <title>Login/Registration</title>
+    <script>
+        $(document).ready( function() {
+            $("#datepicker").datepicker();
+        });
+    </script>
+</head>
+<body>
+    <h2>Welcome!</h2>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %} 
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h3>Register</h3>
+    <form action="/users/add" method="post">
+        <p><label>Name: </label><input type="text" name="name" /></p>
+        <p><label>Alias: </label><input type="text" name="alias" /></p>
+        <p><label>Email: </label><input type="text" name="email" /></p>
+        <p><label>Password: </label><input type="password" name="password" /></p>
+        <p>*Password should be at least 8 characters</p>
+        <p><label>Confirm Password: </label><input type="password" name="confirm_pw" /></p>
+        <p>Date of Birth: <input type="text" id="datepicker"></p>
+        <p><input type="submit" value="Register" /></p>
+    </form>
+
+    <h3>Login</h3>
+    <form action="/users/login" method="post">
+        <p><label>Email: </label><input type="text" name="email" /></p>
+        <p><label>Password: </label><input type="password" name="password" /></p>
+        <p><input type="submit" value="Login" /></p>
+    </form>
+
+</body>
+</html>

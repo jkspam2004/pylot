@@ -1,0 +1,59 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <title>Quotes</title>
+</head>
+<body>
+    <h2>Welcome, {{ session.alias }}!</h2>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %} 
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <p><a href="/logout">Logout</a></p>
+
+    <h3>Quotable Quotes</h3>
+    {% if quotes %}
+    <div id="quotes">
+        {% for quote in quotes %}
+            <p>{{ quote.quoted_by }}: {{ quote.message }}</p>
+            <p> 
+                Posted by <a href="/users/{{ quote.poster_id }}">{{ quote.poster_alias }}</a> 
+                <form action="/quotes/move_to/{{ quote.quote_id }}" method="post">
+                    <input type="submit" value="Add to My List">
+                </form>
+            </p> 
+        {% endfor %} 
+    </div> <!-- div#quotes -->
+    {% endif %}
+
+    <h3>Your Favorites</h3>
+    {% if favorites %}
+    <div id="favorites">
+        {% for quote in favorites %}
+            <p>{{ quote.quoted_by }}: {{ quote.message }}</p>
+            <p>
+                Posted by <a href="/users/{{ quote.poster_id }}">{{ quote.poster_alias }}</a> 
+                <form action="/quotes/move_from/{{ quote.favorite_id }}" method="post">
+                    <input type="submit" value="Remove From My List">
+                </form>
+            </p>
+        {% endfor %} 
+    </div> <!-- div#favorites -->
+    {% endif %}
+
+
+    <h3> Contribute a Quote: </h3>    
+    <form action="/quotes/add/{{ session.user_id }}" method="post">
+        <p><label>Quoted By: </label><input type="text" name="quoted_by" /></p>
+        <p><label>Message: </label><textarea rows="3" cols="30" name="message"></textarea></p>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+
+</body>
+</html>
