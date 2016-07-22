@@ -4,7 +4,7 @@ import re
 class Login(Model):
     def __init__(self):
         super(Login, self).__init__()
-        self.user = []
+        self.user = [] 
 
     def create_user(self, info):
         errors = self.validate_registration(info)
@@ -14,11 +14,9 @@ class Login(Model):
         else:
             # insert user
             info['password'] = self.bcrypt.generate_password_hash(info['password'])
-            row_id = self.do_insert(info)
-            # Then retrieve the last inserted user.
-            get_user_query = "SELECT * FROM users ORDER BY id DESC LIMIT 1"
-            self.user = self.db.query_db(get_user_query)
-            return { 'status': True, 'user': self.user[0] }
+            user_id = self.do_insert(info)
+            user = self.get_user_by_id(user_id)
+            return { 'status': True, 'user': user }
 
     def login_user(self, info):
         errors = self.validate_login(info)
@@ -41,6 +39,14 @@ class Login(Model):
             results = self.db.query_db(query)
 
         return results
+
+    # get user info by id
+    def get_user_by_id(self, id):
+        print("get_user_by_id: ", id)
+        query = "SELECT * FROM users WHERE id = :id"
+        user = self.db.query_db(query, { 'id' : id }) 
+        print("user: ", user)
+        return user[0] 
 
     # insert one row
     def do_insert(self, info):
@@ -75,7 +81,7 @@ class Login(Model):
 
     # returns errors from basic validation
     def validate_registration(self, info):
-        EMAIL_REGEX = re.compile(r'^[a-za-z0-9\.\+_-]+@[a-za-z0-9\._-]+\.[a-za-z]*$')
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
         duplicate_email = self.do_select('users', 'email', info['email'])
         errors = []
 
