@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Result</title>
+</head>
+<body>
+    <p>Thanks for submitting this form! You have submitted this form {{ session.counter }} times now</p>
+
+    <p>Submitted Information</p>
+    <p><label>Name: </label>{{ session.name }}</p>
+    <p><label>Dojo Location: </label>{{ session.location }}</p>
+    <p><label>Favorite Language: </label>{{ session.language }}</p>
+    <p><label>Comment: </label>{{ session.comment }}</p>
+</body>
+</html>
+
+

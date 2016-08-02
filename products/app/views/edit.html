@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Product {{ product.id }} | Semi Restful Route Demo</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+    <h3>Edit Product {{ product.id }}</h3>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/products/update/{{ product.id }}" method="post">
+        <p>Name</p> 
+        <p><input type="text" name="name" value="{{ product.name }}" /></p>
+        <p>Description</p> 
+        <p><input type="text" name="description" value="{{ product.description }}" /></p>
+        <p>Price</p> 
+        <p><input type="text" name="price" value="{{ product.price }}" /></p>
+        <p><input type="submit" value="Update" /></p>
+    </form>    
+    <p>
+        <a href="/products/show/{{ product.id }}">Show</a>
+        <a href="/">Back</a>
+    </p>
+
+</body>
+</html>
