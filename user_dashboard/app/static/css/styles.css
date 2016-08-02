@@ -1,0 +1,23 @@
+* {
+    font-family: monaco;
+    margin: 0px;
+    padding: 0px;
+	background-color: #eee;
+
+}
+div#body {
+    margin-top: 5%;
+}
+p.message {
+	background-color: #FBFBFB;
+	padding: 10px;
+	box-shadow: 5px 5px 5px #888888;
+	margin: 1% 0% 2% 0%;
+	
+}
+p.error {
+    color: red;
+}
+p.success {
+    color: green;
+}

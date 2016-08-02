@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% if user.id == session.user_id %}
+    <title>Edit Profile</title>
+    {% else %}
+    <title>Edit User</title>
+    {% endif %}
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+           <a class="navbar-brand" href="/">Test App</a>
+            {% if session.admin %}
+                <a class="navbar-text" href="/dashboard/admin">Dashboard</a>
+            {% else %}
+                <a class="navbar-text" href="/dashboard">Dashboard</a>
+            {% endif %}
+            <a class="navbar-text" href="/users/edit">Profile</a>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-text">{{ session.name }}</li>
+                <li><a href="/logout">Log off</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid" id="body">
+        <div class="container">
+            <div class="row">
+            {% if session.admin and user.id != session.user_id %}
+                <div class="col-md-10"><h3>Edit user #{{ user.id }}</h3></div>
+            {% else %}
+                <div class="col-md-10"><h3>Edit profile</h3></div>
+            {% endif %}
+
+            {% if session.admin %}
+                <div class="col-md-2"><a href="/dashboard/admin" class="btn btn-sm btn-primary" role="button">Return to Dashboard</a></div>
+            {% else %}
+                <div class="col-md-2"><a href="/dashboard" class="btn btn-sm btn-primary" role="button">Return to Dashboard</a></div>
+            {% endif %}
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Edit Information</h4>
+                    <form action="/users/update_user" method="post">
+                        <div class="form-group">
+                            <label for="email">Email Address:</label>
+                            <input type="email" name="email" id="email" value="{{ user.email }}" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="first_name">First Name:</label>
+                            <input type="text" name="first_name" id="first_name"  value="{{ user.first_name }}" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name:</label>
+                            <input type="text" name="last_name" id="lastfirst_name"  value="{{ user.last_name }}" class="form-control" />
+                        </div>
+                        {% if session.admin %}
+                        <p>User Level:</p>
+                        <p><select name="user_level" class="form-control">
+                               <option value="0">Normal</option>
+                               <option value="9">Admin</option>
+                           </select>
+                        </p>
+                        {% endif %}
+                        <input type="hidden" name="id" value="{{ user.id }}" />
+                        <button type="submit" class="btn btn-sm btn-success" style="margin-bottom: 10%; float: right">Save</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h4>Change Password</h4>
+                    <form action="/users/update_password" method="post">
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" name="password" id="password" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_pw">Password Confirmation:</label>
+                            <input type="password" name="confirm_pw" id="confirm_pw" class="form-control"/>
+                        </div>
+                        <input type="hidden" name="id" value="{{ user.id }}" />
+                        <button type="submit" class="btn btn-sm btn-success" style="float: right">Update Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {% if user.id == session.user_id %}
+        <div class="container">
+            <h4>Edit Description</h4>
+            <p>Current description: {{ user.description }}</p> 
+            <form action="/users/update_description" method="post">
+                <textarea rows="3" class="form-control" name="description"></textarea>
+                <input type="hidden" name="id" value="{{ user.id }}" />
+                <button type="submit" class="btn btn-sm btn-success" style="margin-top: 1%; float: right">Save</button>
+            </form>
+        </div>
+        {% endif %}
+    </div> <!-- div#container -->
+
+</body>
+</html>
