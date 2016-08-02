@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Delete Review</title>
+	</head>
+	<body>
+		<h3>Are you sure you wish to remove this review?</h3>
+		<form action="/books/confirm_delete/{{ review_id }}" method="post">
+			<input type="submit" value="Yes">
+		</form>
+		<a href="/"><button>No</button></a>
+	</body>
+</html>

@@ -9,7 +9,7 @@ class Messages(Controller):
 
     # return a tuple with filename, linenum, and function name for caller
     def trace(self):
-        return __file__, + inspect.stack()[1][2], inspect.stack()[1][3]
+        return __file__, inspect.stack()[1][2], inspect.stack()[1][3]
 
     def post(self):
         data = request.form.copy()

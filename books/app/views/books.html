@@ -1,0 +1,55 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <title>Books Home</title>
+</head>
+<body>
+    <div id="container">
+        <h4>Welcome, {{ session.alias }} 
+            <a href="/books/add">Add Book and Review</a>
+            <a href="/logout">Logout</a> 
+        </h4>
+
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %} 
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+
+        <div id="recent_reviews">
+            <p>Recent Book Reviews:</p>
+            {% if recent_reviews %}
+                {% for review in recent_reviews %}
+                    <p><a href="/books/{{ review.book_id }}">{{ review.title }}</a></p>
+                    <p>Rating: {{ review.rating }} stars</p>
+                    <p>
+                        <a href="/users/{{ review.user_id }}">{{ review.alias }}</a> 
+                        says: {{ review.review }} </p>
+                    <p>Posted on {{ review.review_updated_at }}</p>
+                    {% if review.user_id == session.user_id %}
+                    <a href="/books/delete/{{ review.review_id }}">Delete this Review</a>  
+                    {% endif %}
+                    <hr>
+                {% endfor %}
+            {% endif %}
+        </div> <!-- div#recent_reviews -->
+
+        <div id="all_books">
+            <p>Other Books with Reviews:</p>
+            <div class="scroll" style="overflow:scroll; width:200px; height:150px">
+            {% if all_books %}
+                {% for book in all_books %}
+                    <p><a href="/books/{{ book.id }}">{{ book.title }}</a>
+                {% endfor %}
+            {% endif %}
+            </div> <!-- div.scroll -->
+        </div> <!-- div#all_reviews -->
+    </div> <!-- div#container -->
+    
+   
+
+</body>
+</html>

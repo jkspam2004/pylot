@@ -1,0 +1,53 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <title>Review Book</title>
+</head>
+<body>
+    <p class="nav">
+        <a href="/books">Home</a>
+        <a href="/logout">Logout</a>
+    </p>
+
+    <h4>{{ book.title }}</h4>
+    <p>Author: {{ book.author }}</p>
+
+    <h4>Reviews:</h4> <!-- all reviews for book in ascending order-->
+    {% if reviews %}
+        {% for review in reviews %}
+            <hr>
+            <p>Rating: {{ review.rating }} stars</p>
+            <p><a href="/users/{{ review.user_id }}">{{ review.alias }}</a>
+                says {{ review.review }}
+            </p>
+            <p>Posted on {{ review.review_updated_at }}</p>
+            {% if review.user_id == session['user_id'] %}
+                <p><a href="/reviews/delete/{{ review.review_id }}"></a></p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %} 
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <p>Add a Review:</p>
+    <form action="/books/add_review" method="post">
+    <input type="hidden" name="book_id" value="{{ book.id }}">
+    <p><textarea name="review" rows="5" cols="30"></textarea></p>
+    <p>
+        Rating:
+        <select name="rating">
+        {% for rating in range(1,6) %}
+            <option value="{{ rating }}">{{ rating }}</option>
+        {% endfor %}
+    </p>
+    <p><input type="submit" value="Submit Review" /></p>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <title>Add Book and Review</title>
+</head>
+<body>
+    <p class="nav">
+        <a href="/books">Home</a>
+        <a href="/logout">Logout</a>
+    </p>
+
+    <h4>Add a New book and Title and a Review:</h4>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %} 
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form action="/books/create" method="post">
+        <p><label>Book Title:</label><input type="text" name="title"></p>
+        <p><label>Author:</label></p>
+        <p>Choose from the list: 
+            <select name="author">
+            {% if authors %}
+                {% for author in authors %}
+                    <option value="{{ author }}">{{ author }}</option>     
+                {% endfor %}
+            {% endif %}
+            </select>
+        </p>
+        <p>Or add a new author: <input type="text" name="author" /></p>
+        <p>Review:</p>
+        <p><textarea rows="5" cols="50" name="review"></textarea></p>
+        <p>Rating: 
+            <select name="rating">
+            {% for rating in range(1,6) %} 
+                <option value="{{ rating }}">{{ rating }}</option>
+            {% endfor %}
+            </select>
+            stars
+        </p>
+        <p><input type="submit" value="Add Book and Review"></p>
+    </form>
+
+</body>
+</html>
